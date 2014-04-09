@@ -14,7 +14,7 @@ Display::Display(int e_pin, int rs_pin, int data_pins_start) {
 
 Display::~Display() {
     delete leds;
-}
+} 
 
 void Display::write(char* line1, char* line2) {
 
