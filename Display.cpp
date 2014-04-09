@@ -16,10 +16,6 @@ Display::~Display() {
     delete leds;
 }
 
-void Display::init() {
-
-}
-
 void Display::write(char* line1, char* line2) {
 
 }
