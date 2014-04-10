@@ -10,6 +10,12 @@ Display::Display(int e_pin, int rs_pin, int data_pins_start) {
     bar_text_status = 0x00;
 
     leds = new Leds();
+
+    // Initialization of Display
+    instruction(0x38);
+    instruction(0x0C);
+    instruction(0x06);
+    instruction(0x01);
 }
 
 Display::~Display() {
@@ -17,13 +23,30 @@ Display::~Display() {
 } 
 
 void Display::write(char* line1, char* line2) {
-
+    char i = 0;
+    instruction(SET_DDRAM);
+    do {
+        dataCommand(line1[0]);
+    } while (line1[i] != '\0');
+    instruction(SET_DDRAM | )
 }
 
 void Display::instruction(char instr) {
     for (int i = 0; i < 8; i++) {
         digitalWrite(data_pins[i] + instr & 0x01
     }
+    digitalWrite(rs_pin, 0);
+    digitalWrite(e_pin, 1);
+    digitalWrite(e_pin, 0);
+}
+
+void Display::dataCommand(char data) {
+    for (int i = 0; i < 8; i++) {
+        digitalWrite(data_pins[i] + instr & 0x01
+    }
+    digitalWrite(rs_pin, 1);
+    digitalWrite(e_pin, 1);
+    digitalWrite(e_pin, 0);
 }
 
 void Display::setMode(int mode) {
