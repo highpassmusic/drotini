@@ -15,9 +15,12 @@ void setup() {
     encoders = new Encoders();
     buttons = new Buttons(10, 11, 12);
     display = new Display(8, 9 , 0);
+    display->setText(0, "Hello World!");
+    display->writeText();
 #ifdef DEBUG
     Serial.println("We set this ass up");
 #endif
+    
 }
 
 void loop() {
