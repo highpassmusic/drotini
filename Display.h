@@ -1,6 +1,7 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
+#include <Arduino.h>
 #include "Leds.h"
 
 #define ROW 0
@@ -42,7 +43,7 @@ class Display {
     // When in row mode, positions 0 and 1 are
     // the first and second rows of the display.
     char *text[8];
-    Leds leds;
+    Leds* leds;
     // helper function - writes to screen.
     void write(char*, char*);
     void instruction(char);
@@ -55,6 +56,8 @@ class Display {
     void setText(int, char*);
     void setBar(int, int);
     void setColor(int, int, int);
+
+    void writeText();
 };
 
 #endif

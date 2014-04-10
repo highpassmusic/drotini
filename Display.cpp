@@ -28,12 +28,12 @@ void Display::write(char* line1, char* line2) {
     do {
         dataCommand(line1[0]);
     } while (line1[i] != '\0');
-    instruction(SET_DDRAM | )
+    //instruction(SET_DDRAM | )
 }
 
 void Display::instruction(char instr) {
     for (int i = 0; i < 8; i++) {
-        digitalWrite(data_pins[i] + instr & 0x01
+        digitalWrite(data_pins[i], instr & (0x01 << i));
     }
     digitalWrite(rs_pin, 0);
     digitalWrite(e_pin, 1);
@@ -42,11 +42,19 @@ void Display::instruction(char instr) {
 
 void Display::dataCommand(char data) {
     for (int i = 0; i < 8; i++) {
-        digitalWrite(data_pins[i] + instr & 0x01
+        digitalWrite(data_pins[i], data & (0x01 << i));
     }
     digitalWrite(rs_pin, 1);
     digitalWrite(e_pin, 1);
     digitalWrite(e_pin, 0);
+}
+
+void Display::writeText() {
+    if (mode == ROW) {
+        write(text[0], text[1]);
+    } else {
+
+    }
 }
 
 void Display::setMode(int mode) {
@@ -54,7 +62,8 @@ void Display::setMode(int mode) {
 }
 
 void Display::setText(int placement, char* text) {
-
+    this->text[placement] = text;
+    writeText();
 }
 
 void Display::setBar(int placement, int amount) {
